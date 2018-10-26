@@ -1,12 +1,15 @@
 package model;
 
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
 
 @SequenceGenerator(name="SeqLogin",sequenceName="seq_login",initialValue=10,allocationSize = 1)
 @Table(name="Login")
@@ -21,6 +24,8 @@ public class Login {
 	String motDePasse;
 	@Column(name="droit_administrateur")
 	Boolean admin_id;
+	@OneToOne(mappedBy="login")
+	private Client client;
 	@Version
 	int version;
 	
