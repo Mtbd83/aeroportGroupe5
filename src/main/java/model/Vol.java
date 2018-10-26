@@ -1,9 +1,11 @@
 package model;
 
+
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.sql.Time;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @Entity
@@ -23,14 +27,23 @@ public class Vol {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIdvol")
 	@Column(name = "id_vol", length = 100)
 	private Integer idVol;
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_depart", length = 100)
 	private Date dateDepart;
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "date_arrivee", length = 100)
 	private Date dateArrivee;
+	
+	@Temporal(TemporalType.TIME)
 	@Column(name = "heure_depart", length = 100)
-	private Time heureDepart;
+	private Date heureDepart;
+	
+	@Temporal(TemporalType.TIME)
 	@Column(name = "heure_arrivee", length = 100)
-	private Time heureArrivee;
+	private Date heureArrivee;
+	
 	@OneToMany(mappedBy = "key.vol")
 	@Column(name = "compagnie", length = 100)
 	private List<CompagnieVol> compagniesVol;
@@ -77,19 +90,21 @@ public class Vol {
 		this.dateArrivee = dateArrivee;
 	}
 
-	public Time getHeureDepart() {
+
+
+	public Date getHeureDepart() {
 		return heureDepart;
 	}
 
-	public void setHeureDepart(Time heureDepart) {
+	public void setHeureDepart(Date heureDepart) {
 		this.heureDepart = heureDepart;
 	}
 
-	public Time getHeureArrivee() {
+	public Date getHeureArrivee() {
 		return heureArrivee;
 	}
 
-	public void setHeureArrivee(Time heureArrivee) {
+	public void setHeureArrivee(Date heureArrivee) {
 		this.heureArrivee = heureArrivee;
 	}
 
