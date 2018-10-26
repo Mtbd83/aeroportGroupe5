@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -8,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -35,6 +39,11 @@ public class Passager {
 		@AttributeOverride(name="pays", column=@Column(name="pays", length=100)),
 	})
 	private Adresse adresse;
+	
+	@OneToMany (mappedBy="passager")
+	private List<Reservation> reservations = new ArrayList<>();
+	
+
 	
 	public Passager() {
 		
@@ -95,6 +104,14 @@ public class Passager {
 		} else if (!idPassager.equals(other.idPassager))
 			return false;
 		return true;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 	
 	
