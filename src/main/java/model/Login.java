@@ -1,7 +1,7 @@
 package model;
 
 import javax.persistence.Column;
-import javax.persistence.FetchType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,24 +10,24 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
-
+@Entity
 @SequenceGenerator(name="SeqLogin",sequenceName="seq_login",initialValue=10,allocationSize = 1)
 @Table(name="Login")
 
 public class Login {
 	@Id
 	@GeneratedValue(generator="SeqLogin",strategy=GenerationType.SEQUENCE)
-	Integer id;
+	private Integer id;
 	@Column(name="identifiant")
-	String login;
+	private String login;
 	@Column(name="mot_de_passe")
-	String motDePasse;
+	private String motDePasse;
 	@Column(name="droit_administrateur")
-	Boolean admin_id;
+	private Boolean admin_id;
+	@Version
+	private int version;
 	@OneToOne(mappedBy="login")
 	private Client client;
-	@Version
-	int version;
 	
 	public Login() {
 		super();
@@ -70,6 +70,18 @@ public class Login {
 	}
 	public int getVersion() {
 		return version;
+	}
+
+	
+
+	public Client getClient() {
+		return client;
+	}
+
+
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 

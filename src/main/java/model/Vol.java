@@ -41,11 +41,9 @@ public class Vol {
 
 	@ManyToOne
 	@JoinColumn(name = "id_aeroport_depart")
-	@Column(name = "aeroport_depart", length = 100)
 	private Aeroport aeroportDepart;
 	@ManyToOne
 	@JoinColumn(name = "id_aeroport_arrivee")
-	@Column(name = "aeroport_arrivee", length = 100)
 	private Aeroport aeroportArrivee;
 	@Version
 	@Column(name = "version", length = 10)

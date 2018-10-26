@@ -26,15 +26,12 @@ public class Reservation {
 	private Date dateReservation;
 	@ManyToOne
 	@JoinColumn(name="id_client")
-	@Column(name="client",length =100)
 	private Client client;
-	@Column(name="passager",length =100)
 	@ManyToOne
 	@JoinColumn(name="id_passager")
 	private Passager passager;
 	@ManyToOne
 	@JoinColumn(name="id_vol")
-	@Column(name="vol",length =100)
 	private Vol vol;
 	@Version
 	@Column(name="version",length =10)
