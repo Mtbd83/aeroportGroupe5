@@ -10,9 +10,9 @@ public class Escale {
 	private String heureDepart;
 	private String heureArrivee;
 	private int version;
-	
+
 	public Escale() {
-		
+
 	}
 
 	public EscaleKey getKey() {

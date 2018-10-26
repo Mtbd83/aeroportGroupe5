@@ -18,7 +18,7 @@ public class TestEntites {
 
 	@BeforeClass
 	public static void initEntityManagerFactory() {
-		emf = Persistence.createEntityManagerFactory("les5Fantastiques");
+		emf = Persistence.createEntityManagerFactory("aeroportGroupe5");
 	}
 
 	@AfterClass
