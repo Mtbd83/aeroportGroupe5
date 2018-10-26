@@ -7,6 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import model.Aeroport;
+import model.CompagnieVol;
+import model.Passager;
+import model.Reservation;
 import model.Vol;
 import util.Context;
 
@@ -69,11 +73,35 @@ public class DaoVolJpaImpl implements DaoVol{
 	@Override
 	public void delete(Vol objet) {
 		EntityManager em= Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx=null;
+		EntityTransaction tx=em.getTransaction();
 		try {
-		tx=em.getTransaction();
 		tx.begin();
-		em.remove(em.merge(objet));
+		objet = em.merge(objet);
+		List<Reservation> resa = objet.getReservations();
+		CompagnieVol comp = objet.getCompagnieVol();
+		Aeroport aeroportDepart = objet.getAeroportDepart();
+		Aeroport aeroportArrivee = objet.getAeroportArrivee();
+		
+		if (resa!=null) {
+			objet.setReservations(null);
+		}
+		
+		if (comp!=null) {
+			objet.setCompagnieVol(null);
+		}
+		
+		if (aeroportDepart!=null) {
+			objet.setAeroportDepart(null);
+			objet.setDateDepart(null);
+		}
+		
+		if (aeroportArrivee!=null) {
+			objet.setAeroportArrivee(null);
+			objet.setHeureArrivee(null);
+		}
+		
+		
+		em.remove(objet);
 		tx.commit();
 		}catch (Exception e){
 			e.printStackTrace();
