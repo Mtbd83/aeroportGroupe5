@@ -1,4 +1,4 @@
-package les5Fantastiques;
+package dao;
 
 import static org.junit.Assert.*;
 
@@ -18,18 +18,38 @@ import dao.DaoLogin;
 import dao.DaoLoginFactory;
 import util.Context;
 
-public class volTest {
+public class allTests {
 
 	private static EntityManagerFactory emf = null;
 	private EntityManager em = null;
 	private static DaoLogin daoLogin;
-	private static DaoAdresse daoAdresse;
+	private static DaoAeroport daoAeroport;
+	private static DaoClient daoClient;
+	private static DaoCompagnie daoCompagnie;
+	private static DaoVol daoVol;
+	private static DaoCompagnieVol daoCompagnieVol;
+	private static DaoEscale daoEscale;
+	private static DaoPassager daoPassager;
+	private static DaoReservation daoReservation;
+	private static DaoVille daoVille;
+	private static DaoVilleAeroport daoVilleAeroport;
+	private static DaoVol daoVol;
 
 	@BeforeClass
 	public static void initEntityManagerFactory() {
 		emf = Persistence.createEntityManagerFactory("les5Fantastiques");
 		daoLogin = DaoLoginFactory.getInstance();
-		daoAdresse = DaoAdresseFactory.getInstance();
+		daoAeroport=DaoAeroportFactory.getInstance();
+		daoClient=DaoClientFactory.getInstance();
+		daoCompagnie=DaoClientFactory.getInstance();
+		daoVol=DaoVolFactory.getInstance();
+		daoCompagnieVol=DaoCompagnieVolFactory.getInstance();
+		daoEscale=DaoEscaleFactory.getInstance();
+		daoPassager=DaoPassagerFactory.getInstance();
+		daoReservation=DaoReservationFactory.getInstance();
+		daoVille=DaoVilleFactory.getInstance();
+		daoVilleAeroport=DaoVilleAeroportFactory.getInstance();
+		daoVol=DaoVolFactory.getInstance();
 	}
 
 	@AfterClass
@@ -54,5 +74,7 @@ public class volTest {
 		assertNotNull(em);
 
 	}
+	
+
 
 }
