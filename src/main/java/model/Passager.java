@@ -1,13 +1,15 @@
 package model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "passager")
@@ -25,7 +27,13 @@ public class Passager {
 	private String prenom;
 	
 	//@Column(name = "adresse_passager", length = 100)
-	@Transient
+	@Embedded
+	@AttributeOverrides({
+		@AttributeOverride(name="adresse", column=@Column(name="adresse", length=200)),
+		@AttributeOverride(name="codePostal", column=@Column(name="code_postal", length=20)),
+		@AttributeOverride(name="ville", column=@Column(name="ville", length=100)),
+		@AttributeOverride(name="pays", column=@Column(name="pays", length=100)),
+	})
 	private Adresse adresse;
 	
 	public Passager() {

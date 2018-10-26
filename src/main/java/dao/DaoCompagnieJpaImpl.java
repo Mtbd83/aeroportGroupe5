@@ -6,18 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import model.Client;
-import model.Passager;
+import model.Aeroport;
+import model.Compagnie;
 import util.Context;
 
-public class DaoPassagerJpaImpl implements DaoPassager{
+public class DaoCompagnieJpaImpl implements DaoCompagnie {
+
 	@Override
-	public void create(Passager obj) {
+	public void create(Compagnie obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		// permet de creer un singleton au lieu de charger la couche hibernate à chaque
-		// lancer
-		EntityTransaction tx = em.getTransaction();
+		EntityTransaction tx = null;
 		try {
+			tx = em.getTransaction();
 			tx.begin();
 			em.persist(obj);
 			tx.commit();
@@ -34,25 +34,23 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 	}
 
 	@Override
-	public Passager findByKey(Integer key) {
+	public Compagnie findByKey(Integer key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Passager p = null;
-		p = em.find(Passager.class, key);
+		Compagnie compagnie = null;
+		compagnie = em.find(Compagnie.class, key);
 		em.close();
-
-		return p;
+		return compagnie;
 	}
 
 	@Override
-	public Passager update(Passager obj) {
+	public Compagnie update(Compagnie obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		// permet de creer un singleton au lieu de charger la couche hibernate à chaque
-		// lancer
-		EntityTransaction tx = em.getTransaction();
-		Passager p=null;
+		EntityTransaction tx = null;
+		Compagnie compagnie = null;
 		try {
+			tx = em.getTransaction();
 			tx.begin();
-			p=em.merge(obj);
+			compagnie = em.merge(obj);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,16 +62,15 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 				em.close();
 			}
 		}
-		return p;
+		return compagnie;
 	}
 
 	@Override
-	public void delete(Passager obj) {
+	public void delete(Compagnie obj) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		// permet de creer un singleton au lieu de charger la couche hibernate à chaque
-		// lancer
-		EntityTransaction tx = em.getTransaction();
+		EntityTransaction tx = null;
 		try {
+			tx = em.getTransaction();
 			tx.begin();
 			em.remove(em.merge(obj));
 			tx.commit();
@@ -92,12 +89,11 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 	@Override
 	public void deleteByKey(Integer key) {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		// permet de creer un singleton au lieu de charger la couche hibernate à chaque
-		// lancer
-		EntityTransaction tx = em.getTransaction();
+		EntityTransaction tx = null;
 		try {
+			tx = em.getTransaction();
 			tx.begin();
-			em.remove(em.find(Passager.class, key));
+			em.remove(em.merge(em.find(Compagnie.class, key)));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,14 +108,13 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 	}
 
 	@Override
-	public List<Passager> findAll() {
+	public List<Compagnie> findAll() {
 		EntityManager em = Context.getInstance().getEntityManagerFactory().createEntityManager();
-		Query query = em.createQuery("from Passager p");
-		// le select n'est pas obligatoire si on veut recuperer toutes les instances de
-		// l'entite Passager
-		List<Passager> Passagers = null;
-		Passagers = query.getResultList();
+		List<Compagnie> compagnies = null;
+		Query query = em.createQuery("from Compagnie c");
+		compagnies = query.getResultList();
 		em.close();
-		return Passagers;
+		return compagnies;
 	}
+
 }
