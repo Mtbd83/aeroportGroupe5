@@ -19,6 +19,11 @@ public class EscaleKey implements Serializable {
 
 	}	
 
+	public EscaleKey(Vol vol, Aeroport aeroport) {
+		this.vol = vol;
+		this.aeroport = aeroport;
+	}
+
 	public Vol getVol() {
 		return vol;
 	}
