@@ -7,7 +7,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
+import model.Client;
+import model.Passager;
 import model.Reservation;
+import model.Vol;
 import util.Context;
 
 public class DaoReservationJpaImpl implements DaoReservation{
@@ -69,12 +72,24 @@ public class DaoReservationJpaImpl implements DaoReservation{
 	@Override
 	public void delete(Reservation objet) {
 		EntityManager em= Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx=null;
+		EntityTransaction tx=em.getTransaction();;
 		try {
-		tx=em.getTransaction();
-		tx.begin();
-		em.remove(em.merge(objet));
-		tx.commit();
+			tx.begin();
+			objet=em.merge(objet);
+			Vol vol = objet.getVol();
+			Passager passager = objet.getPassager();
+			Client client = objet.getClient();
+			if (vol!= null) {
+				objet.setVol(null);
+			}
+			if (passager!= null) {
+				objet.setPassager(null);;
+			}
+			if (client!= null) {
+				objet.setClient(null);;
+			}
+			em.remove(objet);
+			tx.commit();
 		}catch (Exception e){
 			e.printStackTrace();
 			if(tx!=null && tx.isActive()) {
@@ -91,11 +106,23 @@ public class DaoReservationJpaImpl implements DaoReservation{
 	@Override
 	public void deleteByKey(Integer key) {
 		EntityManager em= Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx=null;
+		EntityTransaction tx=em.getTransaction();
 		try {
-		tx=em.getTransaction();
+		Reservation objet=em.merge(em.find(Reservation.class,key));
+		Vol vol = objet.getVol();
+		Passager passager = objet.getPassager();
+		Client client = objet.getClient();
+		if (vol!= null) {
+			objet.setVol(null);
+		}
+		if (passager!= null) {
+			objet.setPassager(null);;
+		}
+		if (client!= null) {
+			objet.setClient(null);;
+		}
 		tx.begin();
-		em.remove(em.find(Reservation.class, key));
+		em.remove(objet);
 		tx.commit();
 		}catch (Exception e){
 			e.printStackTrace();
