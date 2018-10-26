@@ -24,17 +24,16 @@ public class Reservation {
 	private Integer numeroReservation;
 	@Column(name="date_reservation",length =100)
 	private Date dateReservation;
-//	@ManyToOne
-//	@JoinColumn(name="id_client")
-//	@Column(name="client",length =100)
-//	private Client client;
-//	@Column(name="passager",length =100)
-//	@ManyToOne
-//	@JoinColumn(name="id_passager")
-//	private Passager passager;
-//	@ManyToOne
-//	@JoinColumn(name="id_vol")
-//	@Transient
+	@ManyToOne
+	@JoinColumn(name="id_client")
+	@Column(name="client",length =100)
+	private Client client;
+	@Column(name="passager",length =100)
+	@ManyToOne
+	@JoinColumn(name="id_passager")
+	private Passager passager;
+	@ManyToOne
+	@JoinColumn(name="id_vol")
 	@Column(name="vol",length =100)
 	private Vol vol;
 	@Version
@@ -62,21 +61,21 @@ public class Reservation {
 		this.dateReservation = dateReservation;
 	}
 
-//	public Client getClient() {
-//		return client;
-//	}
-//
-//	public void setClient(Client client) {
-//		this.client = client;
-//	}
-//
-//	public Passager getPassager() {
-//		return passager;
-//	}
-//
-//	public void setPassager(Passager passager) {
-//		this.passager = passager;
-//	}
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	public Passager getPassager() {
+		return passager;
+	}
+
+	public void setPassager(Passager passager) {
+		this.passager = passager;
+	}
 
 	public Vol getVol() {
 		return vol;
