@@ -17,42 +17,42 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Version;
 
 @Entity
-@SequenceGenerator(name="seqIdvol",sequenceName="seq_id_vol", initialValue=50,allocationSize=1)
+@SequenceGenerator(name = "seqIdvol", sequenceName = "seq_id_vol", initialValue = 50, allocationSize = 1)
 public class Vol {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqIdvol")
-	@Column(name="id_vol",length =100)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIdvol")
+	@Column(name = "id_vol", length = 100)
 	private Integer idVol;
-	@Column(name="date_depart",length =100)
+	@Column(name = "date_depart", length = 100)
 	private Date dateDepart;
-	@Column(name="date_arrivee",length =100)
+	@Column(name = "date_arrivee", length = 100)
 	private Date dateArrivee;
-	@Column(name="heure_depart",length =100)
+	@Column(name = "heure_depart", length = 100)
 	private Time heureDepart;
-	@Column(name="heure_arrivee",length =100)
+	@Column(name = "heure_arrivee", length = 100)
 	private Time heureArrivee;
-	@OneToMany(mappedBy="key.vol")
-	@Column(name="compagnie",length =100)
-	private CompagnieVol compagnieVol;
-	
-	@OneToMany(mappedBy="vol")
-	@Column(name="vol_id",length =100)
+	@OneToMany(mappedBy = "key.vol")
+	@Column(name = "compagnie", length = 100)
+	private List<CompagnieVol> compagniesVol;
+
+	@OneToMany(mappedBy = "vol")
+	@Column(name = "vol_id", length = 100)
 	private List<Reservation> reservations = new ArrayList<>();;
-	
+
 	@ManyToOne
-	@JoinColumn(name="id_aeroport_depart")
-	@Column(name="aeroport_depart",length =100)
+	@JoinColumn(name = "id_aeroport_depart")
+	@Column(name = "aeroport_depart", length = 100)
 	private Aeroport aeroportDepart;
 	@ManyToOne
-	@JoinColumn(name="id_aeroport_arrivee")
-	@Column(name="aeroport_arrivee",length =100)
+	@JoinColumn(name = "id_aeroport_arrivee")
+	@Column(name = "aeroport_arrivee", length = 100)
 	private Aeroport aeroportArrivee;
 	@Version
-	@Column(name="version",length =10)
+	@Column(name = "version", length = 10)
 	private int version;
-	
+
 	public Vol() {
-		
+
 	}
 
 	public Integer getIdVol() {
@@ -95,8 +95,13 @@ public class Vol {
 		this.heureArrivee = heureArrivee;
 	}
 
-	
-	
+	public List<CompagnieVol> getCompagniesVol() {
+		return compagniesVol;
+	}
+
+	public void setCompagniesVol(List<CompagnieVol> compagniesVol) {
+		this.compagniesVol = compagniesVol;
+	}
 
 	public List<Reservation> getReservations() {
 		return reservations;
@@ -104,14 +109,6 @@ public class Vol {
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
-	}
-
-	public CompagnieVol getCompagnieVol() {
-		return compagnieVol;
-	}
-
-	public void setCompagnieVol(CompagnieVol compagnieVol) {
-		this.compagnieVol = compagnieVol;
 	}
 
 	public Aeroport getAeroportDepart() {
@@ -162,9 +159,5 @@ public class Vol {
 			return false;
 		return true;
 	}
-
-	
-	
-
 
 }
