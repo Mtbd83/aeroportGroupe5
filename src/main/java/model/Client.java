@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -43,7 +45,14 @@ public class Client {
 
 	@Column(name = "titre_client", length = 100)
 	private Titre titre;
-
+	
+	@Column(name = "type_client", length = 100)
+	private TypeClient type;
+	
+	@OneToOne
+	@JoinColumn(name="login")
+	private Login login;
+	
 	@Embedded
 	@AttributeOverrides({ @AttributeOverride(name = "adresse", column = @Column(name = "adresse", length = 200)),
 			@AttributeOverride(name = "codePostal", column = @Column(name = "code_postal", length = 20)),
@@ -124,6 +133,14 @@ public class Client {
 		this.adresse = adresse;
 	}
 
+	public TypeClient getType() {
+		return type;
+	}
+
+	public void setType(TypeClient type) {
+		this.type = type;
+	}
+
 	public int getVersion() {
 		return version;
 	}
@@ -138,6 +155,14 @@ public class Client {
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 
 	@Override
