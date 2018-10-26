@@ -19,6 +19,11 @@ public class VilleAeroportKey implements Serializable {
 
 	}
 
+	public VilleAeroportKey(Ville ville, Aeroport aeroport) {
+		this.ville = ville;
+		this.aeroport = aeroport;
+	}
+
 	public Ville getVille() {
 		return ville;
 	}

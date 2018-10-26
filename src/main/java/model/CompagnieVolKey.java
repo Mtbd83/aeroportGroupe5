@@ -12,11 +12,16 @@ public class CompagnieVolKey implements Serializable {
 	@JoinColumn(name = "id_compagnie")
 	private Compagnie compagnie;
 	@ManyToOne
-	@JoinColumn(name = "id_compagnie")
+	@JoinColumn(name = "id_vol")
 	private Vol vol;
 
 	public CompagnieVolKey() {
 
+	}
+
+	public CompagnieVolKey(Compagnie compagnie, Vol vol) {
+		this.compagnie = compagnie;
+		this.vol = vol;
 	}
 
 	public Compagnie getCompagnie() {

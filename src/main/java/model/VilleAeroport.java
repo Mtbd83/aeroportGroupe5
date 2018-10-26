@@ -2,8 +2,10 @@ package model;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "ville_aeroport")
 public class VilleAeroport {
 	@EmbeddedId
 	private VilleAeroportKey key;
