@@ -5,17 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dao.DaoAeroport;
-import dao.DaoAeroportFactory;
-import dao.DaoCompagnie;
-import dao.DaoCompagnieFactory;
-import dao.DaoVille;
-import dao.DaoVilleFactory;
-import dao.DaoVol;
-import dao.DaoVolFactory;
 import model.Aeroport;
 import model.Compagnie;
+import model.CompagnieVol;
+import model.CompagnieVolKey;
+import model.Escale;
+import model.EscaleKey;
 import model.Ville;
+import model.VilleAeroport;
+import model.VilleAeroportKey;
 import model.Vol;
 
 public class TestClement {
@@ -23,13 +21,19 @@ public class TestClement {
 	private static DaoCompagnie daoCompagnie;
 	private static DaoVille daoVille;
 	private static DaoVol daoVol;
+	private static DaoCompagnieVol daoCompagnieVol;
+	private static DaoVilleAeroport daoVilleAeroport;
+	private static DaoEscale daoEscale;
 
 	@BeforeClass
 	public static void initDao() {
 		daoAeroport = DaoAeroportFactory.getInstance();
-		daoCompagnie = DaoACompagnieFactory.getInstance();
+		daoCompagnie = DaoCompagnieFactory.getInstance();
 		daoVille = DaoVilleFactory.getInstance();
-		daoVille = DaoVolFactory.getInstance();
+		daoVol = DaoVolFactory.getInstance();
+		daoCompagnieVol = DaoCompagnieVolFactory.getInstance();
+		daoVilleAeroport = DaoVilleAeroportFactory.getInstance();
+		daoEscale = DaoEscaleFactory.getInstance();
 	}
 
 	@Test
@@ -51,5 +55,47 @@ public class TestClement {
 		compagnieVol.setKey(new CompagnieVolKey(compagnie, vol));
 		daoCompagnieVol.create(compagnieVol);
 		assertNotNull(compagnieVol.getKey());
+	}
+
+	@Test
+	public void testVilleAeroport() {
+		Ville ville = new Ville();
+		ville.setNom("Paris");
+		daoVille.create(ville);
+		Aeroport aeroport = new Aeroport();
+		aeroport.setIdAeroport(5);
+		daoAeroport.create(aeroport);
+		VilleAeroport villeAeroport = new VilleAeroport();
+		villeAeroport.setKey(new VilleAeroportKey(ville, aeroport));
+		daoVilleAeroport.create(villeAeroport);
+		assertNotNull(villeAeroport.getKey());
+		ville = new Ville();
+		ville.setNom("New York");
+		daoVille.create(ville);
+		villeAeroport = new VilleAeroport();
+		villeAeroport.setKey(new VilleAeroportKey(ville, aeroport));
+		daoVilleAeroport.create(villeAeroport);
+		assertNotNull(villeAeroport.getKey());
+	}
+
+	@Test
+	public void testEscale() {
+		Vol vol = new Vol();
+		vol.setIdVol(2);
+		daoVol.create(vol);
+		Aeroport aeroport = new Aeroport();
+		aeroport.setIdAeroport(5);
+		daoAeroport.create(aeroport);
+		Escale escale = new Escale();
+		escale.setKey(new EscaleKey(vol, aeroport));
+		daoEscale.create(escale);
+		assertNotNull(escale.getKey());
+		vol = new Vol();
+		vol.setIdVol(3);
+		daoVol.create(vol);
+		escale = new Escale();
+		escale.setKey(new EscaleKey(vol, aeroport));
+		daoEscale.create(escale);
+		assertNotNull(escale.getKey());
 	}
 }
