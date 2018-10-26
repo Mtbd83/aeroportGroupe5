@@ -1,10 +1,13 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -19,6 +22,8 @@ public class Ville {
 	private Integer idVille;
 	@Column(name = "nom_ville", length = 150)
 	private String nom;
+	@OneToMany(mappedBy = "key.ville")
+	private List<VilleAeroport> villeAeroports;
 	@Version
 	private int version;
 
@@ -40,6 +45,14 @@ public class Ville {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public List<VilleAeroport> getVilleAeroports() {
+		return villeAeroports;
+	}
+
+	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+		this.villeAeroports = villeAeroports;
 	}
 
 	public int getVersion() {

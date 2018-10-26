@@ -12,7 +12,7 @@ public class CompagnieVolKey implements Serializable {
 	@JoinColumn(name = "id_compagnie")
 	private Compagnie compagnie;
 	@ManyToOne
-	@JoinColumn(name = "id_compagnie")
+	@JoinColumn(name = "id_vol")
 	private Vol vol;
 
 	public CompagnieVolKey() {

@@ -1,10 +1,13 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -19,6 +22,8 @@ public class Compagnie {
 	private Integer idCompagnie;
 	@Column(name = "nom_compagnie", length = 150)
 	private String nom;
+	@OneToMany(mappedBy = "key.compagnie")
+	private List<CompagnieVol> compagnieVols;
 	@Version
 	private int version;
 
@@ -40,6 +45,14 @@ public class Compagnie {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public List<CompagnieVol> getCompagnieVols() {
+		return compagnieVols;
+	}
+
+	public void setCompagnieVols(List<CompagnieVol> compagnieVols) {
+		this.compagnieVols = compagnieVols;
 	}
 
 	public int getVersion() {

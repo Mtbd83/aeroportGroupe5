@@ -78,16 +78,17 @@ public class DaoVolJpaImpl implements DaoVol{
 		tx.begin();
 		objet = em.merge(objet);
 		List<Reservation> resa = objet.getReservations();
-		CompagnieVol comp = objet.getCompagnieVol();
+		List<CompagnieVol> comp = objet.getCompagniesVol();
 		Aeroport aeroportDepart = objet.getAeroportDepart();
 		Aeroport aeroportArrivee = objet.getAeroportArrivee();
 		
 		if (resa!=null) {
-			objet.setReservations(null);
+			for (Reservation re : resa)
+				re.setNumeroReservation(null);
 		}
 		
 		if (comp!=null) {
-			objet.setCompagnieVol(null);
+			objet.setCompagniesVol(null);;
 		}
 		
 		if (aeroportDepart!=null) {
@@ -119,11 +120,34 @@ public class DaoVolJpaImpl implements DaoVol{
 	@Override
 	public void deleteByKey(Integer key) {
 		EntityManager em= Context.getInstance().getEntityManagerFactory().createEntityManager();
-		EntityTransaction tx=null;
+		EntityTransaction tx=em.getTransaction();
 		try {
-		tx=em.getTransaction();
 		tx.begin();
-		em.remove(em.find(Vol.class, key));
+		Vol objet = em.merge(em.find(Vol.class,key));
+		List<Reservation> resa = objet.getReservations();
+		List<CompagnieVol> comp = objet.getCompagniesVol();
+		Aeroport aeroportDepart = objet.getAeroportDepart();
+		Aeroport aeroportArrivee = objet.getAeroportArrivee();
+		
+		if (resa!=null) {
+			for (Reservation re : resa)
+				re.setNumeroReservation(null);
+		}
+		
+		if (comp!=null) {
+			objet.setCompagniesVol(null);;
+		}
+		
+		if (aeroportDepart!=null) {
+			objet.setAeroportDepart(null);
+			objet.setDateDepart(null);
+		}
+		
+		if (aeroportArrivee!=null) {
+			objet.setAeroportArrivee(null);
+			objet.setHeureArrivee(null);
+		}
+		em.remove(objet);
 		tx.commit();
 		}catch (Exception e){
 			e.printStackTrace();

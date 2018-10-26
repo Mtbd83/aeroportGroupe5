@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 public class CompagnieVol {
 	@EmbeddedId
 	private CompagnieVolKey key;
-	private int version;
 
 	public CompagnieVol() {
 
@@ -19,14 +18,6 @@ public class CompagnieVol {
 
 	public void setKey(CompagnieVolKey key) {
 		this.key = key;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	@Override
