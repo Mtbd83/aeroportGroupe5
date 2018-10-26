@@ -78,7 +78,7 @@ public class DaoVolJpaImpl implements DaoVol{
 		tx.begin();
 		objet = em.merge(objet);
 		List<Reservation> resa = objet.getReservations();
-		CompagnieVol comp = objet.getCompagnieVol();
+		List<CompagnieVol> comp = objet.getCompagniesVol();
 		Aeroport aeroportDepart = objet.getAeroportDepart();
 		Aeroport aeroportArrivee = objet.getAeroportArrivee();
 		
@@ -87,7 +87,7 @@ public class DaoVolJpaImpl implements DaoVol{
 		}
 		
 		if (comp!=null) {
-			objet.setCompagnieVol(null);
+			objet.setCompagniesVol(null);;
 		}
 		
 		if (aeroportDepart!=null) {
