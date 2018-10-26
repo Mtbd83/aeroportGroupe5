@@ -19,6 +19,11 @@ public class CompagnieVolKey implements Serializable {
 
 	}
 
+	public CompagnieVolKey(Compagnie compagnie, Vol vol) {
+		this.compagnie = compagnie;
+		this.vol = vol;
+	}
+
 	public Compagnie getCompagnie() {
 		return compagnie;
 	}
