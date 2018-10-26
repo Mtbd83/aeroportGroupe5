@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
+@Embeddable
 @Table(name = "client")
-@SequenceGenerator(name = "seqClient", sequenceName = "seq_client", initialValue = 1, allocationSize = 10)
+@SequenceGenerator(name = "seqClient", sequenceName = "seq_client", initialValue = 1, allocationSize = 1)
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqClient")
@@ -42,19 +44,16 @@ public class Client {
 	@Column(name = "titre_client", length = 100)
 	private Titre titre;
 
-
 	@Embedded
-	@AttributeOverrides({
-		@AttributeOverride(name="adresse", column=@Column(name="adresse", length=200)),
-		@AttributeOverride(name="codePostal", column=@Column(name="code_postal", length=20)),
-		@AttributeOverride(name="ville", column=@Column(name="ville", length=100)),
-		@AttributeOverride(name="pays", column=@Column(name="pays", length=100)),
-	})
+	@AttributeOverrides({ @AttributeOverride(name = "adresse", column = @Column(name = "adresse", length = 200)),
+			@AttributeOverride(name = "codePostal", column = @Column(name = "code_postal", length = 20)),
+			@AttributeOverride(name = "ville", column = @Column(name = "ville", length = 100)),
+			@AttributeOverride(name = "pays", column = @Column(name = "pays", length = 100)), })
 	private Adresse adresse;
 
 	@Version
 	private int version;
-	
+
 	@OneToMany(mappedBy = "client")
 	private List<Reservation> reservations;
 
