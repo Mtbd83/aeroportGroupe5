@@ -2,12 +2,18 @@ package dao;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import dao.DaoVol;
+import dao.DaoVolFactory;
 import model.Vol;
 import util.Context;
+import java.util.Date;
 
 
 public class daoVolTest {
@@ -35,44 +41,46 @@ private static DaoVol daoVol;
 		assertNotNull(vol.getIdVol());
 	}
 	
-//	@Test
-//	public void findByKeyTest() {
-//		Vol camille= new Vol (Titre.MLLE,"FindByKey","Camille");
-//		daoVol.create(camille);
-//		assertNotNull(daoVol.findByKey(camille.getNoVol()));
-//	}
-//	
-//	@Test
-//	public void updateTest() {
-//		Vol ad= new Vol (Titre.MLLE,"Update","Camille");
-//		daoVol.create(ad);
-//		ad = daoVol.findByKey(ad.getNoVol());
-//		ad.setNom("new up");
-//		daoVol.update(ad);
-//		assertEquals("new up", daoVol.findByKey(ad.getNoVol()).getNom());
-//	}
-//	
-//	@Test
-//	public void findAllTest() {
-//		assertNotNull(daoVol.findAll());
-//	}
-//	
-//	@Test
-//	public void deleteTest() {
-//		Vol ad= new Vol (Titre.MLLE,"Delete","Camille");;
-//		daoVol.create(ad);
-//		daoVol.delete(ad);
-//		assertNull(daoVol.findByKey(ad.getNoVol()));
-//	}
-//	
-//	
-//	@Test
-//	public void deleteByKeyTest() {
-//		Vol ad= new Vol (Titre.MLLE,"Delete","Camille");
-//		daoVol.create(ad);
-//		daoVol.deleteByKey(ad.getNoVol());;
-//		assertNull(daoVol.findByKey(ad.getNoVol()));
-//	}
-//	
+	@Test
+	public void findByKeyTest() {
+		Vol vol= new Vol ();
+		daoVol.create(vol);
+		assertNotNull(daoVol.findByKey(vol.getIdVol()));
+	}
+	
+	@Test
+	public void updateTest() throws ParseException {
+		Vol vol= new Vol ();
+		daoVol.create(vol);
+		vol = daoVol.findByKey((vol.getIdVol()));
+		SimpleDateFormat sdf = new SimpleDateFormat ("YYYY-MM-DD");
+		vol.setDateArrivee(sdf.parse("2001-04-15"));
+		daoVol.update(vol);
+		assertEquals(sdf.parse("2001-04-15"), daoVol.findByKey(vol.getIdVol()).getDateArrivee());
+
+	}
+	
+	@Test
+	public void findAllTest() {
+		assertNotNull(daoVol.findAll());
+	}
+	
+	@Test
+	public void deleteTest() {
+		Vol vol= new Vol ();
+		daoVol.create(vol);
+		daoVol.delete(vol);
+		assertNull(daoVol.findByKey(vol.getIdVol()));
+	}
+	
+	
+	@Test
+	public void deleteByKeyTest() {
+		Vol vol= new Vol ();
+		daoVol.create(vol);
+		daoVol.deleteByKey(vol.getIdVol());;
+		assertNull(daoVol.findByKey(vol.getIdVol()));
+	}
+	
 	
 }
