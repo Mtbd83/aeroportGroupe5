@@ -1,12 +1,14 @@
 package dao;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import model.Client;
+import model.Login;
 import model.Passager;
 import util.Context;
 
@@ -75,6 +77,17 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
+
+			obj = em.merge(obj); // obj peut etre manage
+			// set la reservation a null
+			
+			Set<Reservation> reservations = (Set<Reservation>) obj.getReservations();
+			if(reservations!=null) {
+				for(Reservation r: reservations) {
+				r.setNumeroReservation(null);
+				}
+			}
+			
 			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
@@ -97,7 +110,18 @@ public class DaoPassagerJpaImpl implements DaoPassager{
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
-			em.remove(em.find(Passager.class, key));
+
+			Passager obj = em.merge(em.find(Passager.class, key)); // obj peut etre manage
+			// set la reservation a null
+			
+			Set<Reservation> reservations = (Set<Reservation>) obj.getReservations();
+			if(reservations!=null) {
+				for(Reservation r: reservations) {
+				r.setNumeroReservation(null);
+				}
+			}
+			
+			em.remove(em.merge(obj));
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
