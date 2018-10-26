@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.sql.Time;
 
 import javax.persistence.Column;
@@ -29,17 +31,22 @@ public class Vol {
 	private Time heureDepart;
 	@Column(name="heure_arrivee",length =100)
 	private Time heureArrivee;
-//	@OneToMany(mappedBy="key.vol")
-//	@Column(name="compagnie",length =100)
-//	private CompagnieVol compagnieVol;
-//	@ManyToOne
-//	@JoinColumn(name="id_aeroport_depart")
-//	@Column(name="aeroport_depart",length =100)
-//	private Aeroport aeroportDepart;
-//	@ManyToOne
-//	@JoinColumn(name="id_aeroport_arrivee")
-//	@Column(name="aeroport_arrivee",length =100)
-//	private Aeroport aeroportArrivee;
+	@OneToMany(mappedBy="key.vol")
+	@Column(name="compagnie",length =100)
+	private CompagnieVol compagnieVol;
+	
+	@OneToMany(mappedBy="vol")
+	@Column(name="vol_id",length =100)
+	private List<Reservation> reservations = new ArrayList<>();;
+	
+	@ManyToOne
+	@JoinColumn(name="id_aeroport_depart")
+	@Column(name="aeroport_depart",length =100)
+	private Aeroport aeroportDepart;
+	@ManyToOne
+	@JoinColumn(name="id_aeroport_arrivee")
+	@Column(name="aeroport_arrivee",length =100)
+	private Aeroport aeroportArrivee;
 	@Version
 	@Column(name="version",length =10)
 	private int version;
@@ -88,29 +95,40 @@ public class Vol {
 		this.heureArrivee = heureArrivee;
 	}
 
-//	public Compagnie getCompagnie() {
-//		return compagnie;
-//	}
-//
-//	public void setCompagnie(Compagnie compagnie) {
-//		this.compagnie = compagnie;
-//	}
-//
-//	public Aeroport getAeroportDepart() {
-//		return aeroportDepart;
-//	}
-//
-//	public void setAeroportDepart(Aeroport aeroportDepart) {
-//		this.aeroportDepart = aeroportDepart;
-//	}
-//
-//	public Aeroport getAeroportArrivee() {
-//		return aeroportArrivee;
-//	}
-//
-//	public void setAeroportArrivee(Aeroport aeroportArrivee) {
-//		this.aeroportArrivee = aeroportArrivee;
-//	}
+	
+	
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	public CompagnieVol getCompagnieVol() {
+		return compagnieVol;
+	}
+
+	public void setCompagnieVol(CompagnieVol compagnieVol) {
+		this.compagnieVol = compagnieVol;
+	}
+
+	public Aeroport getAeroportDepart() {
+		return aeroportDepart;
+	}
+
+	public void setAeroportDepart(Aeroport aeroportDepart) {
+		this.aeroportDepart = aeroportDepart;
+	}
+
+	public Aeroport getAeroportArrivee() {
+		return aeroportArrivee;
+	}
+
+	public void setAeroportArrivee(Aeroport aeroportArrivee) {
+		this.aeroportArrivee = aeroportArrivee;
+	}
 
 	public int getVersion() {
 		return version;
