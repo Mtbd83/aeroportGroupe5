@@ -25,27 +25,27 @@ import javax.persistence.Version;
 public class Vol {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqIdvol")
-	@Column(name = "id_vol", length = 100)
+	@Column(name = "id_vol", length = 20)
 	private Integer idVol;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_depart", length = 100)
+	@Column(name = "date_depart", length = 20)
 	private Date dateDepart;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "date_arrivee", length = 100)
+	@Column(name = "date_arrivee", length = 20)
 	private Date dateArrivee;
 	
 	@Temporal(TemporalType.TIME)
-	@Column(name = "heure_depart", length = 100)
+	@Column(name = "heure_depart", length = 20)
 	private Date heureDepart;
 	
 	@Temporal(TemporalType.TIME)
-	@Column(name = "heure_arrivee", length = 100)
+	@Column(name = "heure_arrivee", length = 20)
 	private Date heureArrivee;
 	
 	@OneToMany(mappedBy = "key.vol")
-	@Column(name = "compagnie", length = 100)
+	@Column(name = "compagnie", length = 20)
 	private List<CompagnieVol> compagniesVol;
 
 	@OneToMany(mappedBy = "vol")

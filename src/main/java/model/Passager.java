@@ -30,7 +30,7 @@ public class Passager {
 	@Column(name = "prenom_passager", length = 100)
 	private String prenom;
 	
-	//@Column(name = "adresse_passager", length = 100)
+	@Column(name = "adresse_passager", length = 100)
 	@Embedded
 	@AttributeOverrides({
 		@AttributeOverride(name="adresse", column=@Column(name="adresse", length=200)),
