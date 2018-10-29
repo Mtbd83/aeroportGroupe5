@@ -5,12 +5,18 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,8 +25,10 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Embeddable
+
 @Table(name = "client")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING,length=5)
 @SequenceGenerator(name = "seqClient", sequenceName = "seq_client", initialValue = 1, allocationSize = 1)
 public class Client {
 	@Id
@@ -40,14 +48,10 @@ public class Client {
 	@Column(name = "mail_client", length = 100)
 	private String mail;
 
-	@Column(name = "type_client", length = 100)
-	private Integer typeClient;
-
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name = "titre_client", length = 100)
 	private Titre titre;
-	
-	@Column(name = "type_client", length = 100)
-	private TypeClient type;
 	
 	@OneToOne
 	@JoinColumn(name="login")
@@ -109,14 +113,6 @@ public class Client {
 		this.mail = mail;
 	}
 
-	public Integer getTypeClient() {
-		return typeClient;
-	}
-
-	public void setTypeClient(Integer typeClient) {
-		this.typeClient = typeClient;
-	}
-
 	public Titre getTitre() {
 		return titre;
 	}
@@ -131,14 +127,6 @@ public class Client {
 
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
-	}
-
-	public TypeClient getType() {
-		return type;
-	}
-
-	public void setType(TypeClient type) {
-		this.type = type;
 	}
 
 	public int getVersion() {
