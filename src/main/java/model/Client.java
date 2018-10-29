@@ -49,7 +49,6 @@ public class Client {
 	private String mail;
 
 	
-	@Enumerated(EnumType.STRING)
 	@Column(name = "titre_client", length = 100)
 	@Enumerated(EnumType.STRING)
 	private Titre titre;
