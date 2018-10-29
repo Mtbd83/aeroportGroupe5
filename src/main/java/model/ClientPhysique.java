@@ -1,13 +1,15 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("P")
 public class ClientPhysique extends Client {
-
+	@Column
 	private String titrePhysique;
+	@Column
 	private String String;
 	public ClientPhysique() {
 		super();

@@ -51,17 +51,18 @@ public class Client {
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "titre_client", length = 100)
+	@Enumerated(EnumType.STRING)
 	private Titre titre;
 	
 	@OneToOne
-	@JoinColumn(name="login")
+	@JoinColumn(name = "login")
 	private Login login;
-	
+
 	@Embedded
-	@AttributeOverrides({ @AttributeOverride(name = "adresse", column = @Column(name = "adresse", length = 200)),
+	@AttributeOverrides({ @AttributeOverride(name = "adresse", column = @Column(name = "adresse", length = 20)),
 			@AttributeOverride(name = "codePostal", column = @Column(name = "code_postal", length = 20)),
-			@AttributeOverride(name = "ville", column = @Column(name = "ville", length = 100)),
-			@AttributeOverride(name = "pays", column = @Column(name = "pays", length = 100)), })
+			@AttributeOverride(name = "ville", column = @Column(name = "ville", length = 20)),
+			@AttributeOverride(name = "pays", column = @Column(name = "pays", length = 20)) })
 	private Adresse adresse;
 
 	@Version
@@ -112,6 +113,7 @@ public class Client {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
+	
 
 	public Titre getTitre() {
 		return titre;

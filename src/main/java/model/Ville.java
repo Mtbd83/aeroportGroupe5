@@ -48,11 +48,11 @@ public class Ville {
 		this.nom = nom;
 	}
 
-	public List<VilleAeroport> getVilleAeroports() {
+	public Set<VilleAeroport> getVilleAeroports() {
 		return villeAeroports;
 	}
 
-	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+	public void setVilleAeroports(Set<VilleAeroport> villeAeroports) {
 		this.villeAeroports = villeAeroports;
 	}
 
