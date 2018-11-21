@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +23,7 @@ public class Compagnie {
 	@Column(name = "nom_compagnie", length = 150)
 	private String nom;
 	@OneToMany(mappedBy = "key.compagnie")
-	private List<CompagnieVol> compagnieVols;
+	private Set<CompagnieVol> compagnieVols;
 	@Version
 	private int version;
 
@@ -47,11 +47,11 @@ public class Compagnie {
 		this.nom = nom;
 	}
 
-	public List<CompagnieVol> getCompagnieVols() {
+	public Set<CompagnieVol> getCompagnieVols() {
 		return compagnieVols;
 	}
 
-	public void setCompagnieVols(List<CompagnieVol> compagnieVols) {
+	public void setCompagnieVols(Set<CompagnieVol> compagnieVols) {
 		this.compagnieVols = compagnieVols;
 	}
 

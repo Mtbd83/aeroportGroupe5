@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,10 @@ public class Aeroport {
 	@Column(name = "nom_aeroport", length = 150)
 	private String nom;
 	@OneToMany(mappedBy = "key.aeroport")
-	private List<VilleAeroport> villesAeroport;
+	private Set<VilleAeroport> villesAeroport;
+	@OneToMany(mappedBy = "key.aeroport")
+	@Column(name = "vol", length = 100)
+	private Set<Escale> escales;
 	@Version
 	private int version;
 
@@ -47,12 +51,20 @@ public class Aeroport {
 		this.idAeroport = idAeroport;
 	}
 
-	public List<VilleAeroport> getVillesAeroport() {
+	public Set<VilleAeroport> getVillesAeroport() {
 		return villesAeroport;
 	}
 
-	public void setVillesAeroport(List<VilleAeroport> villesAeroport) {
+	public void setVillesAeroport(Set<VilleAeroport> villesAeroport) {
 		this.villesAeroport = villesAeroport;
+	}
+
+	public Set<Escale> getEscales() {
+		return escales;
+	}
+
+	public void setEscales(Set<Escale> escales) {
+		this.escales = escales;
 	}
 
 	public int getVersion() {

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Ville {
 	@Column(name = "nom_ville", length = 150)
 	private String nom;
 	@OneToMany(mappedBy = "key.ville")
-	private List<VilleAeroport> villeAeroports;
+	private Set<VilleAeroport> villeAeroports;
 	@Version
 	private int version;
 
@@ -47,11 +48,11 @@ public class Ville {
 		this.nom = nom;
 	}
 
-	public List<VilleAeroport> getVilleAeroports() {
+	public Set<VilleAeroport> getVilleAeroports() {
 		return villeAeroports;
 	}
 
-	public void setVilleAeroports(List<VilleAeroport> villeAeroports) {
+	public void setVilleAeroports(Set<VilleAeroport> villeAeroports) {
 		this.villeAeroports = villeAeroports;
 	}
 

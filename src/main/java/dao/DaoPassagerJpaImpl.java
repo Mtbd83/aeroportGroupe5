@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import model.Client;
 import model.Login;
 import model.Passager;
+import model.Reservation;
 import util.Context;
 
 public class DaoPassagerJpaImpl implements DaoPassager{
